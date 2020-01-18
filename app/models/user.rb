@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  enum gender: { unknown: 0, male: 1, female: 2, other: 9 }
+  
+  scope :get_by_name, ->(name) {
+  where("name like ?", "%#{name}%")
+  }
   has_many :attendances, dependent: :destroy
   
   attr_accessor :remember_token
@@ -43,4 +48,15 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+  
+  def self.search(search)
+    if search
+      where(['name LIKE ?' , "%#{search}%"])
+    else
+      all
+    end
+  end  
 end
+
+
+
