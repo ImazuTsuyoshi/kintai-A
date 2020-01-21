@@ -69,9 +69,9 @@
     <td><%= format_min(day.finished_at)  if day.finished_at.present? %></td>
     <td></td>
     <td>
-      <% if day.started_at.present? && day.finished_at.present? %>
+    <% if day.started_at.present? && day.finished_at.present? %>
         <%= working_times(day.started_at.floor_to(15.minutes), day.finished_at.floor_to(15.minutes)) %>
-      <% end %>
+    <% end %>
     </td>
     <td><%= day.note %></td>
     <td></td>

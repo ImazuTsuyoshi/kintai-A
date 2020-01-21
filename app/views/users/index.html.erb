@@ -18,7 +18,7 @@
   </div>
 </div>
 　<%= will_paginate %>
-  <table class="table table-condensed table-hover" id="table-users">
+  <table class="table  table-condensed table-hover" id="table-users">
     <thead>
       <tr>
         <th><%= User.human_attribute_name :管理者 %></th>
@@ -33,9 +33,9 @@
           <% else %>
             <%= user.name %>
           <% end %>
-          <%= link_to "　｜基本情報編集", edit_basic_info_user_path(user), remote: true  %>
+          <%= link_to "|基本情報編集", edit_basic_info_user_path(user), remote: true  %>
           <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "　｜　削除", user, method: :delete,
+            <%= link_to "|削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" } %>
           <% end %>
         </td>
