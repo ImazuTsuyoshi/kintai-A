@@ -12,11 +12,6 @@ class User < ApplicationRecord
                     uniqueness: true   
   validates :department, length: { in: 2..50 }, allow_blank: true
   validates :affiliation, length: { in: 2..50 }, allow_blank: true
-  validates :basic_work_time, presence: true
-  validates :designated_work_start_time, presence: true
-  validates :designated_work_end_time, presence: true
-  validates :employee_number, presence: true
-  validates :uid, presence: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
  
