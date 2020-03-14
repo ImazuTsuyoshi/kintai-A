@@ -6,13 +6,23 @@
         <li><%= link_to "トップへ", root_path %></li>
         <% if logged_in? %>
         <li>
-          <% if current_user.admin? && !current_user?(@users) %>
+         
           <%= link_to "ユーザ一覧", users_path %>
+          
+        </li>
+        <li>
+          <% if current_user.admin? && !current_user?(@users) %>
+          <%= link_to "出勤社員一覧", users_index1_path %>
           <% end %>
         </li>
         <li>
           <% if current_user.admin? && !current_user?(@users) %>
-          <%= link_to "基本情報訂正", edit_basic_info_user_path(current_user) %>
+          <%= link_to "拠点情報の修正", users_edit1_path %>
+          <% end %>
+        </li>
+        <li>
+          <% if current_user.admin? && !current_user?(@users) %>
+          <%= link_to "基本情報の修正", "" %>
           <% end %>
         </li>
           <li class="dropdown">
@@ -20,7 +30,11 @@
               アカウント <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "勤怠", current_user %></li>
+              <li>
+                
+                <%= link_to "勤怠", current_user %>
+               
+              </li>
               <li><%= link_to "ユーザ編集", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li>
