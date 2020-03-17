@@ -6,9 +6,9 @@
         <li><%= link_to "トップへ", root_path %></li>
         <% if logged_in? %>
         <li>
-         
+         <% if current_user.admin? && !current_user?(@users) %>
           <%= link_to "ユーザ一覧", users_path %>
-          
+         <% end %>  
         </li>
         <li>
           <% if current_user.admin? && !current_user?(@users) %>

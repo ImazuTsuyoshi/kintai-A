@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
-  before_action :logged_in_user, only: [ :index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
-  before_action :correct_user, only: [:edit, :update, :edit_basic_info,  :edit1_basic_info]
+  #before_action :logged_in_user, only: [ :index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
+  before_action :correct_user, only: [:edit]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
   before_action :admin_or_correct_user, only: :show
-  before_action :superior_or_correct_user, only: :show
-  
 
  
  def index
@@ -28,14 +26,17 @@ class UsersController < ApplicationController
  end
  
   def import
-  if params[:csv_file].blank?
-    redirect_to(users_url)
-  else
-    num = Admin::User.import(params[:csv_file])
-    redirect_to(users_url, notice: "#{num.to_s}件のユーザー情報を追加 / 更新しました")
+   # fileはtmpに自動で一時保存される
+   if params[:file].blank?
+     flash[:danger] = "インポートするCSVファイルを選択してください。"
+     redirect_to users_url
+   else
+     User.import(params[:file])
+     flash[:success] = "CSVファイルをインポートしました。"
+     redirect_to users_url
+   end
   end
     
-  end
  
   def new
     @user = User.new
@@ -110,9 +111,6 @@ class UsersController < ApplicationController
       @attendance.update_attributes(started_at: current_time)
     end  
   end
-  
-  def superior_or_correct_user
-  end
 
   private
 
@@ -121,6 +119,6 @@ class UsersController < ApplicationController
     end
     
     def basic_params
-      params.require(:user).permit(:basic_work_time)
+      params.require(:user).permit(:basic_time, :work_time)
     end
 end
