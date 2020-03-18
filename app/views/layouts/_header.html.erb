@@ -12,7 +12,7 @@
         </li>
         <li>
           <% if current_user.admin? && !current_user?(@users) %>
-          <%= link_to "出勤社員一覧", users_index1_path %>
+          <%= link_to "出勤社員一覧", users_index_attendace_path %>
           <% end %>
         </li>
         <li>

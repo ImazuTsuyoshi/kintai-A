@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'users/index1' , to: 'users#index1'
   get 'users/edit1' , to: 'users#edit1'
   get 'users/log' , to: 'users#log'
+  get 'users/index_attendace' , to: 'users#index_attendace'
   
   # ログイン機能 #
   get '/login', to: 'sessions#new'

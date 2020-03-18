@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
-  #before_action :logged_in_user, only: [ :index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
+  before_action :logged_in_user, only: [ :index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
   before_action :correct_user, only: [:edit]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
@@ -24,6 +24,15 @@ class UsersController < ApplicationController
       @users = User.paginate(page: params[:page])
    end
  end
+ 
+ def index_attendance
+    Attendance.where.not(started_at: nil).each do |attendance|
+      if (Date.current == attendance.worked_on) && attendance.finished_at.nil?
+        @users = User.all.includes(:attendances)
+      end
+    end
+ end
+
  
   def import
    # fileはtmpに自動で一時保存される
@@ -72,6 +81,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @attendances_list = Attendance.where(name: current_user.name).where.not(user_id: params[:id])
     @worked_sum = @attendances.where.not(started_at: nil).count
   end
   
@@ -94,23 +104,9 @@ class UsersController < ApplicationController
     end
   end
   
-  def working
-    @users = User.all.includes(:attendances)
-    @user = User.find_by(params[:id])
-    @first_day = Date.today.beginning_of_month
-  @last_day = @first_day.end_of_month
-  (@first_day..@last_day).each do |day|
-    unless @user.attendances.any? {|attendance| attendance.worked_on == day}
-      record = @user.attendances.build(worked_on: day)
-      record.save
-    end
-  end
-    @dates = user_attendances_month_date
-    @attendance = @user.attendances.find_by(worked_on: Date.today)
-    if @attendance.started_at.nil?
-      @attendance.update_attributes(started_at: current_time)
-    end  
-  end
+  
+  
+  
 
   private
 
@@ -120,5 +116,9 @@ class UsersController < ApplicationController
     
     def basic_params
       params.require(:user).permit(:basic_time, :work_time)
+    end
+    
+    def basic_info_params
+      params.require(:user).permit(:basic_work_time, :designated_work_start_time, :designated_work_end_time)
     end
 end
