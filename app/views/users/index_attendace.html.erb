@@ -1,24 +1,28 @@
-<% provide(:title, "出勤中社員一覧") %>
+<% provide(:title, '出勤中') %>
 <h1>出勤中社員一覧</h1>
 
 <div>
-  <table class="table table-bordered table-condensed table-hover text-center table-striped" id="index_attendance">
-    <thead>
-      <tr>
-        <th>社員番号</th>
-        <th>名前</th>
-      </tr>  
-    </thead>
-    <tbody>
-      <tbody>
+  <table class = "table-bordered table-condensed">
+   <thead>  
+    <tr>
+      <th>社員番号</th>
+      <th>名前</th>
+    </tr>
+   </thead>
+   
+   <tbody>
     
-        
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-         
-
-    </tbody>
+    <% @dates.each do |day| %>
+    <% if user = day.worked_on == Date.today && day.started_at.present? && day.finished_at.nil? %>
+    <% @users.select do |user| %>
+     <tr>
+       <th><%= user.id %></th>
+       <th><%= user.name %></th>
+     </tr>
+   <% end %>
+   <% end %>
+   <% end %>
+   </tbody>
+   
   </table>
 </div>

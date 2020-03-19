@@ -25,15 +25,6 @@ class UsersController < ApplicationController
    end
  end
  
- def index_attendance
-    Attendance.where.not(started_at: nil).each do |attendance|
-      if (Date.current == attendance.worked_on) && attendance.finished_at.nil?
-        @users = User.all.includes(:attendances)
-      end
-    end
- end
-
- 
   def import
    # fileはtmpに自動で一時保存される
    if params[:file].blank?
@@ -104,7 +95,23 @@ class UsersController < ApplicationController
     end
   end
   
-  
+  def working
+    @users = User.all.includes(:attendances)
+    @user = User.find_by(params[:id])
+    @first_day = Date.today.beginning_of_month
+  @last_day = @first_day.end_of_month
+  (@first_day..@last_day).each do |day|
+    unless @user.attendances.any? {|attendance| attendance.worked_on == day}
+      record = @user.attendances.build(worked_on: day)
+      record.save
+    end
+  end
+    @dates = user_attendances_month_date
+    @attendance = @user.attendances.find_by(worked_on: Date.today)
+    if @attendance.started_at.nil?
+      @attendance.update_attributes(started_at: current_time)
+    end  
+  end
   
   
 
