@@ -1,0 +1,47 @@
+class BasesController < ApplicationController
+  before_action :set_base, only: [:update, :destroy, :edit_basis_info]
+  
+  def index
+    
+  end
+  
+  def edit_basis_info
+  end 
+  
+  def update
+    if @base.update_attributes(base_params)
+      flash[:success] = "拠点の更新に成功しました。"
+      redirect_to bases_url
+    else
+      render :bases
+    end 
+  end
+  
+  
+  def create
+  @base = Base.new(base_params)
+    if @base.save
+      flash[:info] = "拠点情報を追加しました。"
+      redirect_to bases_url
+    else 
+      render :new
+    end
+  end
+  
+  def new
+    @base = Base.new
+  end 
+  
+  def destroy
+    @base.destroy
+    flash[:success] = "#{@base.name}のデータを削除しました。"
+    redirect_to bases_url
+  end
+  
+  
+  private
+  
+  def base_params
+      params.require(:base).permit(:id, :name, :attendance_sort)
+  end
+end

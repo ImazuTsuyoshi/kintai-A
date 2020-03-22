@@ -17,7 +17,7 @@
         </li>
         <li>
           <% if current_user.admin? && !current_user?(@users) %>
-          <%= link_to "拠点情報の修正", users_edit1_path %>
+          <%= link_to "拠点情報の修正", bases_path %>
           <% end %>
         </li>
         <li>

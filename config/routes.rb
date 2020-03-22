@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
+  get 'bases/new'
+
+  get 'base/new'
+
+  get 'bnse/new'
+
   root 'static_pages#top'
   get '/signup', to: 'users#new'
   get 'users/index1' , to: 'users#index1'
   get 'users/edit1' , to: 'users#edit1'
   get 'users/log' , to: 'users#log'
   get 'users/index_attendace' , to: 'users#index_attendace'
+  get 'users/edit_base' , to: 'users#edit_base'
   
   # ログイン機能 #
   get '/login', to: 'sessions#new'
@@ -28,7 +35,15 @@ Rails.application.routes.draw do
       patch 'update_basic4_info'
     end
     resources :attendances, only: :update
-  end  
+  end
+  
+  resources :bases do
+    member do
+      get 'edit_basis_info'
+    end 
+  end
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
