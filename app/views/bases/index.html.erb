@@ -1,7 +1,7 @@
-% provide(:title, 'Base-Index') %>
+<% provide(:title, 'Base-Index') %>
 <% provide(:button_text, '編集') %>
 <h1>拠点一覧</h1>
-<table class="table table-bordered table-condensed user-table">
+<table class="table table-bordered table-condensed base-table">
   <tr>
     <td></td>
     <td></td>
@@ -12,13 +12,24 @@
   
   <% @bases.each do |base| %>
     <tr>
-      <td><%= link_to "編集", "", remote: true, class: "btn btn-primary" %></td>
+      <td><%= link_to "編集", edit_basic_info_base_path(base) , remote: true, class: "btn btn-primary" %></td>
       <td><%= link_to "削除", '#', class: "btn btn-primary", data: {confirm: "削除してよろしいですか？" } %></td>
-      <td><%= base.id %></td>
-      <td><%= base.name %></td>
-      <td><%= base.attendance_sort %></td>
+      <td>
+       <%= base.base_id %>
+      </td>
+      <td>
+       <%= base.name %>
+      </td>
+      <td><%= base.attendance_sort %>
+        <select class="form-control">
+          <option>出勤</option>
+          <option>退勤</option>
+        </select>
+      </td>
     </tr>
   <% end %>
 </table>
 <%= link_to "拠点情報追加", "", class: "btn btn-lg btn-primary" %>
-<div id="edit-basis-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<!--モーダルウインドウ表示-->
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

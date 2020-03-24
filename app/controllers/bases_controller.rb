@@ -1,14 +1,17 @@
 class BasesController < ApplicationController
   before_action :set_base, only: [:update, :destroy, :edit_basis_info]
+  before_action :correct_base, only: [:edit]
   
   def index
-    
+    @bases = Base.all
   end
   
-  def edit_basis_info
-  end 
+  def edit
+    @base = Base.find(params[:id])
+  end
   
   def update
+    @Base = Base.find(params[:id])
     if @base.update_attributes(base_params)
       flash[:success] = "拠点の更新に成功しました。"
       redirect_to bases_url
@@ -42,6 +45,6 @@ class BasesController < ApplicationController
   private
   
   def base_params
-      params.require(:base).permit(:id, :name, :attendance_sort)
+      params.require(:base).permit(:base_id, :name, :attendance_sort)
   end
 end

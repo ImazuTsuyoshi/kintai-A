@@ -49,5 +49,7 @@ User.create!(name: "テスト",
              admin: false,
              password: "password")              
              
-             
- 
+Base.create!(name: "拠点A",
+             base_id: "2",
+             attendance_sort: ""
+             )              
