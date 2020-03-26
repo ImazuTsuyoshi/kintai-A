@@ -1,6 +1,7 @@
 class BasesController < ApplicationController
-  before_action :set_base, only: [:update, :destroy, :edit_basis_info]
-  before_action :correct_base, only: [:edit]
+  before_action :set_base, only: [ :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :correct_base, only: [ :update]
+ 
   
   def index
     @bases = Base.all
@@ -18,6 +19,12 @@ class BasesController < ApplicationController
     else
       render :bases
     end 
+  end
+  
+  def edit_basic_info
+  end
+
+  def update_basic_info
   end
   
   
@@ -46,5 +53,13 @@ class BasesController < ApplicationController
   
   def base_params
       params.require(:base).permit(:base_id, :name, :attendance_sort)
+  end
+  
+  def set_user
+    @base = Base.find(params[:id])
+  end
+  
+  def correct_user
+    redirect_to(root_url) unless current_base?(@base)
   end
 end
