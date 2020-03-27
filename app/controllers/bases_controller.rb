@@ -1,5 +1,5 @@
 class BasesController < ApplicationController
-  before_action :set_base, only: [ :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_user, only: [ :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_base, only: [ :update]
  
   
@@ -42,11 +42,15 @@ class BasesController < ApplicationController
     @base = Base.new
   end 
   
+  
+  
   def destroy
     @base.destroy
     flash[:success] = "#{@base.name}のデータを削除しました。"
     redirect_to bases_url
   end
+  
+  
   
   
   private
