@@ -76,5 +76,10 @@ class AttendancesController < ApplicationController
       end
     end
     return attendances
-   end  
+   end 
+   
+   def edit_notice_overtime
+    @notice_users = User.where(id: Attendance.where(name: @user.name).select(:user_id))
+    @attendance_lists = Attendance.where(name: @user.name)
+   end
 end

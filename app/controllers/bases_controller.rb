@@ -1,6 +1,6 @@
 class BasesController < ApplicationController
   before_action :set_user, only: [ :update, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :correct_base, only: [ :update]
+  #before_action :correct_user, only: [ :update]
  
   
   def index
@@ -12,7 +12,7 @@ class BasesController < ApplicationController
   end
   
   def update
-    @Base = Base.find(params[:id])
+    @base = Base.find(params[:id])
     if @base.update_attributes(base_params)
       flash[:success] = "拠点の更新に成功しました。"
       redirect_to bases_url
@@ -43,7 +43,6 @@ class BasesController < ApplicationController
   end 
   
   
-  
   def destroy
     @base.destroy
     flash[:success] = "#{@base.name}のデータを削除しました。"
@@ -64,6 +63,6 @@ class BasesController < ApplicationController
   end
   
   def correct_user
-    redirect_to(root_url) unless current_base?(@base)
+    redirect_to(root_url) unless current_user?(@base)
   end
 end

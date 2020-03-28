@@ -22,17 +22,17 @@
 <div>
   <h4>
     <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【所属長承認申請のお知らせ】", edit3_basic_info_user_path(@user), remote: true, class: "btn1" %>
+      <%= link_to "【所属長承認申請のお知らせ】", edit4_basic_info_user_path(@user), remote: true, class: "btn1" %>
     <% end %>
     </h4>
   <h4>
     <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【勤怠変更申請のお知らせ】", edit2_basic_info_user_path(@user), remote: true, class: "btn1" %>
+      <%= link_to "【勤怠変更申請のお知らせ】", edit_basic_info_user_path(@user), remote: true, class: "btn1" %>
     <% end %>  
     </h4>
   <h4>
     <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【残業申請のお知らせ】", edit4_basic_info_user_path(@user), remote: true, class:"btn1" %>
+      <%= link_to "【残業申請のお知らせ】",  edit2_basic_info_user_path(@user), remote: true, class:"btn1" %>
     <% end %>  
     </h4>
 </div>
@@ -40,7 +40,7 @@
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
   <%= link_to "CSV出力", "", class: "btn btn-primary" %>
-  <h5><%= link_to "勤怠修正ログ（承認済）", "",class: "btn btn-primary" %></h5>
+  <h5><%= link_to "勤怠修正ログ（承認済）", users_correction_log_path,class: "btn btn-primary" %></h5>
   
 </div>
 
@@ -133,3 +133,9 @@
     </tfoot>
   </table>
 </div>
+
+<!--モーダルウインドウ表示-->
+<div id="edit1-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit4-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit2-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

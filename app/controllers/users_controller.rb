@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
+  before_action :logged_in_user, only: [ :index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,  :edit1_basic_info, :update_basic1_info,:edit2_basic_info, :update_basic2_info, :edit3_basic_info, :update_basic3_info, :edit4_basic_info, :update_basic4_info]
   before_action :correct_user, only: [:edit, :show]
   before_action :admin_user, only: [ :show, :destroy]
   before_action :admin_or_correct_user, only: :show
@@ -110,7 +110,7 @@ class UsersController < ApplicationController
     end 
    end
    
-   def index_attendance
+   def index_attendace
     Attendance.where.not(started_at: nil).each do |attendance|
       if (Date.current == attendance.worked_on) && attendance.finished_at.nil?
         @users = User.all.includes(:attendances)
