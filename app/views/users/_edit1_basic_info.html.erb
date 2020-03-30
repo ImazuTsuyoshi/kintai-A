@@ -24,8 +24,11 @@
                <td>業務処理内容</td>
                <td>指示者確認</td>
              </tr>
-             
-             
+             <tr>
+               <!--data-dateから取得した日付と曜日を設定-->
+               <td class="modal-date"></td>
+　　　　　　　 <!-- data-hidden_dateで取得した値を、コントローラーに飛ばす -->
+            　 <%= f.hidden_field :day, class: 'form-control modal-hiddenDate' %>
           </table>   
             <div class="center">
               <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>

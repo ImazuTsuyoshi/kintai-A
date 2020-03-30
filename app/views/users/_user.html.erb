@@ -1,4 +1,6 @@
 
+<% provide(:button_text, '編集') %>
+
 <%= form_with(model: user, local: true) do |f| %>
   <%= render 'shared/error_messages',  object: user  %>
 

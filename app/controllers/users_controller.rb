@@ -40,6 +40,15 @@ class UsersController < ApplicationController
 
 
   def show
+    @users = User.all
+    respond_to do |format|
+      format.html do
+          #html用の処理を書く
+      end 
+      format.csv do
+          #csv用の処理を書く
+      end
+    end
       @attendances_list = Attendance.where(name: current_user.name).where.not(user_id: params[:id])
   end
 
@@ -117,7 +126,6 @@ class UsersController < ApplicationController
       end
     end
    end
-
     
 
   private

@@ -7,3 +7,5 @@ CSV.generate do |csv|
     csv << user
   end
 end
+
+touch app/views/users/show.csv.ruby

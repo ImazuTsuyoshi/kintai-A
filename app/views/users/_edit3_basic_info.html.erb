@@ -24,7 +24,10 @@
                <td>指示者確認㊞</td>
              </tr>
              <tr>
-               <td></td>
+               <!--data-dateから取得した日付と曜日を設定-->
+               <td class="modal-date"></td>
+　　　　　　　 <!-- data-hidden_dateで取得した値を、コントローラーに飛ばす -->
+            　 <%= f.hidden_field :day, class: 'form-control modal-hiddenDate' %>
                <td></td>
                <td></td>
                <td></td>

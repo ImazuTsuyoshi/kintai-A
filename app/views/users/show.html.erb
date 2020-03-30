@@ -31,15 +31,18 @@
     <% end %>  
     </h4>
   <h4>
-    <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【残業申請のお知らせ】",  edit2_basic_info_user_path(@user), remote: true, class:"btn1" %>
-    <% end %>  
-    </h4>
+    <% if @users.present? %>
+     <%= link_to t(:allow_notice_from_superior),edit2_basic_info_user_path(@user), class: "btn1" %>
+    <p class=""><%= 件のおしらせ %></p>
+    <% else %>
+     <%= link_to t(:allow_notice_from_superior),edit2_basic_info_user_path(@user), class: "btn1" %>
+    <% end %>
+  </h4>
 </div>
 
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
-  <%= link_to "CSV出力", "", class: "btn btn-primary" %>
+  <%= link_to "CSV出力", user_path(format: :csv), class: "btn btn-primary" %>
   <h5><%= link_to "勤怠修正ログ（承認済）", users_correction_log_path,class: "btn btn-primary" %></h5>
   
 </div>
@@ -128,6 +131,11 @@
         <td><%= format("%.2f", @total_working_times.to_f) %></td>
         <td colspan="5"></td>
         <td>所属長承認&emsp;<br>
+        <select class="form-control">
+          <option>上長A</option>
+          <option>上長B</option>
+        </select>
+        <br><%= link_to "申請", "" , class: "btn btn-primary" %></br>
         </td>
       </tr>
     </tfoot>
