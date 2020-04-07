@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'approvals/new'
+
   get 'bases/new'
   get 'bases/addition' , to: 'bases#addition'
   
@@ -32,6 +34,8 @@ Rails.application.routes.draw do
       patch 'update_basic4_info'
     end
     resources :attendances, only: :update
+    resources :approvals, only: :update
+    
   end
   
   resources :bases do
