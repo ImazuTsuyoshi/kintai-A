@@ -48,19 +48,14 @@ class AttendancesController < ApplicationController
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
     redirect_to attendances_edit_one_month_user_url(date: params[:date])
   end
-
-  private
-    def attendances_params
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
-    end
-    
-    def admin_or_correct_user
+  
+  def admin_or_correct_user
       @user = User.find(params[:user_id]) if @user.blank?
       unless current_user?(@user) || current_user.admin?
         flash[:danger] = "編集権限がありません。"
         redirect_to(root_url)
       end  
-    end
+  end
     
    def attendances_invalid?
     attendances = true
@@ -78,8 +73,26 @@ class AttendancesController < ApplicationController
     return attendances
    end 
    
-   def edit_notice_overtime
-    @notice_users = User.where(id: Attendance.where(name: @user.name).select(:user_id))
-    @attendance_lists = Attendance.where(name: @user.name)
-   end
+   def update_month
+     if superior_present?
+       update_month_params do |id, item|
+         attendance = Attendance.find(id)
+         attendance.update_attributes!(item)
+       end 
+     flash[:success] = "所属長申請しました。"
+     redirect_to @user
+     end
+
+   end   
+
+  private
+  
+    def attendances_params
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
+    
+    def update_month_params
+	    params.require(:user).permit(attendances: [:superior_id, :apply_month, :month_approval, :month_check])[:attendances]
+    end
+   
 end

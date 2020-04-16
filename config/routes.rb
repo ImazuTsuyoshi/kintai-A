@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'approvals/new'
 
   get 'bases/new'
   get 'bases/addition' , to: 'bases#addition'
@@ -24,17 +23,11 @@ Rails.application.routes.draw do
       patch 'update_basic_info'
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month'
-      get 'edit1_basic_info'
-      patch 'update_basic1_info'
-      get 'edit2_basic_info'
-      patch 'update_basic2_info'
-      get 'edit3_basic_info'
-      patch 'update_basic3_info'
-      get 'edit4_basic_info'
-      patch 'update_basic4_info'
+      patch 'attendances/update_month'
+      
     end
     resources :attendances, only: :update
-    resources :approvals, only: :update
+    
     
   end
   
