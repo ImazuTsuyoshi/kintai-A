@@ -1,4 +1,5 @@
 class Attendance < ApplicationRecord
+   enum name: { "上長A" => 1, "上長B" => 2 } 
   belongs_to :user
   require 'csv'
 

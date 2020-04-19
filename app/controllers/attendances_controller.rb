@@ -74,15 +74,14 @@ class AttendancesController < ApplicationController
    end 
    
    def update_month
-     if superior_present?
+    @user = User.find(params[:id])
+    @attendance = Attendance.find_by(user_id: @user.id)
        update_month_params do |id, item|
          attendance = Attendance.find(id)
          attendance.update_attributes!(item)
        end 
      flash[:success] = "所属長申請しました。"
-     redirect_to @user
-     end
-
+     redirect_to user_url
    end   
 
   private
@@ -92,7 +91,7 @@ class AttendancesController < ApplicationController
     end
     
     def update_month_params
-	    params.require(:user).permit(attendances: [:superior_id, :apply_month, :month_approval, :month_check])[:attendances]
+	   params.permit(:user).permit(attendances: [:superior_id, :apply_month, :month_approval, :month_check])[:attendances]
     end
    
 end

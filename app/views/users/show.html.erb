@@ -28,7 +28,7 @@
   <h4>
     <% if current_user.superior? && !current_user?(@users) %>
       <%= link_to "【勤怠変更申請のお知らせ】", "", remote: true, class: "btn1" %>
-    <% end %>  
+    <%end%>
     </h4>
   <h4>
     <% if current_user.superior? && !current_user?(@users) %>
@@ -105,8 +105,7 @@
           <td></td>
           <td>
             <% if day.started_at.present? && day.finished_at.present? %>
-              <%= str_times = working_times(day.started_at.floor_to(15.minutes), day.finished_at.floor_to(15.minutes)) %>
-              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+              
             <% end %>
           </td>
           <td><%= day.note %></td>
@@ -129,6 +128,7 @@
         <td colspan="5"></td>
         <td>
           <%= form_with(model: @user, url: attendances_update_month_user_path(@user), local: true, method: :patch) do |f| %>
+            <%= f.select :name, Attendance.names.keys.to_a, { include_blank: true } %>
             <%= f.submit "申請", class: "btn btn-lg btn-primary" %>
           <% end %>
         </td>
