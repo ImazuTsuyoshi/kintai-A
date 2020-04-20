@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
   
-  before_action :set_user, only: [:edit_one_month, :update_one_month]
-  before_action :logged_in_user, only: [:update, :edit_one_month]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_month, :update_month]
+  before_action :logged_in_user, only: [:update, :edit_one_month, :edit_month, :update_month]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
 
@@ -82,7 +82,13 @@ class AttendancesController < ApplicationController
        end 
      flash[:success] = "所属長申請しました。"
      redirect_to user_url
-   end   
+   end 
+   
+  def edit_month
+  end
+
+  def update_month
+  end
 
   private
   

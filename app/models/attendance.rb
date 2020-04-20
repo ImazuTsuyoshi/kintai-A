@@ -1,5 +1,5 @@
 class Attendance < ApplicationRecord
-   enum name: { "上長A" => 1, "上長B" => 2 } 
+  enum month_approval: { "なし" => 1, "申請中" => 2, "承認" => 3, "否認" => 4 }
   belongs_to :user
   require 'csv'
 
