@@ -32,6 +32,8 @@ Rails.application.routes.draw do
         patch 'update'   
         get 'edit_month'
         patch 'update_month'
+        get 'edit_overtime'
+        patch 'update_overtime'
       end
     end  
   end

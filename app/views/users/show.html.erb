@@ -83,7 +83,7 @@
     <tbody>
       <% @attendances.each do |day| %>
         <tr>
-          <td><%= link_to "残業申請", "", remote: true, class: "btn btn-primary" %></td>
+          <td><%= link_to "残業申請", edit_overtime_user_attendance_path(@attendances), remote: true, class: "btn btn-primary" %></td>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td>
             <% if day.worked_on.wday == 6 %>
@@ -138,3 +138,4 @@
 </div>
 
 <div id="edit-month" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-overtime" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

@@ -21,12 +21,16 @@
                <td>変更</td>
                <td>勤怠を確認する</td>
              </tr>
+             <% @attendances.each do |month| %>
+          　　<%= f.fields_for "attendances[]", day do |attendance| %>
              <tr>
-               <td></td>
-               <td><%= f.select :month_approval, Attendance.month_approvals.keys.to_a, { include_blank: true } %></td>
-               <td><%= f.check_box :month_check %></td>
+               <td><%= l(month, format: :short) %></td>
+               <td><%= attendance.select :month_approval, Attendance.month_approvals.keys.to_a, { include_blank: true } %></td>
+               <td><%= attendance.check_box :month_check %></td>
                <td><%= link_to "確認", "" , class: "btn btn-primary" %></td>
              </tr>
+             <% end %>
+              <% end %>
           </table>   
             <div class="center">
               <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>

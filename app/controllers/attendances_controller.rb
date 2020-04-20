@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
   
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_month, :update_month]
-  before_action :logged_in_user, only: [:update, :edit_one_month, :edit_month, :update_month]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_month, :update_month, :edit_overtime, :update_overtime]
+  before_action :logged_in_user, only: [:update, :edit_one_month, :edit_overtime, :update_overtime]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
 
@@ -76,7 +76,7 @@ class AttendancesController < ApplicationController
    def update_month
     @user = User.find(params[:id])
     @attendance = Attendance.find_by(user_id: @user.id)
-       update_month_params do |id, item|
+       month_params do |id, item|
          attendance = Attendance.find(id)
          attendance.update_attributes!(item)
        end 
@@ -89,6 +89,12 @@ class AttendancesController < ApplicationController
 
   def update_month
   end
+  
+  def edit_overtime
+  end
+
+  def update_overtime
+  end
 
   private
   
@@ -96,8 +102,12 @@ class AttendancesController < ApplicationController
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
     
-    def update_month_params
+    def month_params
 	   params.permit(:user).permit(attendances: [:superior_id, :apply_month, :month_approval, :month_check])[:attendances]
     end
+    
+    def month_params
+	   params.permit(:user).permit(attendances: [:scheduled_end_time, :yokuzitu])[:attendances]
+    end 
    
 end
