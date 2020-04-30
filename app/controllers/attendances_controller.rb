@@ -83,12 +83,6 @@ class AttendancesController < ApplicationController
      flash[:success] = "所属長申請しました。"
      redirect_to user_url
    end 
-   
-  def edit_month
-  end
-
-  def update_month
-  end
   
   def edit_overtime
   end
@@ -103,11 +97,7 @@ class AttendancesController < ApplicationController
     end
     
     def month_params
-	   params.permit(:user).permit(attendances: [:superior_id, :apply_month, :month_approval, :month_check])[:attendances]
-    end
-    
-    def month_params
-	   params.permit(:user).permit(attendances: [:scheduled_end_time, :yokuzitu])[:attendances]
+	   params.permit(:attendance).permit(attendances: [:scheduled_end_time, :yokuzitu])[:attendances]
     end 
    
 end
