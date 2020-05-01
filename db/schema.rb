@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200426114042) do
+ActiveRecord::Schema.define(version: 20200430160410) do
 
   create_table "attendances", force: :cascade do |t|
     t.date "worked_on"
@@ -20,26 +20,6 @@ ActiveRecord::Schema.define(version: 20200426114042) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "superior_id"
-    t.date "apply_month"
-    t.string "month_approval"
-    t.string "month_check"
-    t.datetime "before_change_at"
-    t.datetime "leave_before_leaving_at"
-    t.datetime "return_to_work_at"
-    t.datetime "change_retreat_company_at"
-    t.string "change_instructor"
-    t.string "change_check"
-    t.datetime "scheduled_end_time_at"
-    t.string "yokuzitu"
-    t.string "mark_of_instructor"
-    t.datetime "scheduled_endtime_at"
-    t.datetime "designated_work_endtime_at"
-    t.datetime "overtime_at"
-    t.string "instructor_confirmation"
-    t.string "change"
-    t.time "month_time"
-    t.string "Gyomu_shori"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -60,13 +40,13 @@ ActiveRecord::Schema.define(version: 20200426114042) do
     t.string "remember_digest"
     t.boolean "admin", default: false
     t.string "department"
-    t.datetime "basic_work_time", default: "2020-04-23 23:00:00"
     t.boolean "superior", default: false
-    t.datetime "designated_work_start_time", default: "2020-04-24 00:00:00"
-    t.datetime "designated_work_end_time", default: "2020-04-24 09:00:00"
     t.string "affiliation"
     t.string "employee_number"
     t.string "uid"
+    t.datetime "basic_work_time", default: "2020-04-30 23:00:00"
+    t.datetime "designated_work_start_time", default: "2020-04-30 23:00:00"
+    t.datetime "designated_work_end_time", default: "2020-05-01 09:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

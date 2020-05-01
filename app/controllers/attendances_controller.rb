@@ -85,9 +85,14 @@ class AttendancesController < ApplicationController
    end 
   
   def edit_overtime
+    @attendance = Attendance.find_by(worked_on: params[:date])
   end
 
   def update_overtime
+    if @user.update_attributes(overtime_params)
+      flash[:success] = "残業申請しました"
+    end
+     redirect_to users_url
   end
 
   private
@@ -96,8 +101,8 @@ class AttendancesController < ApplicationController
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
     
-    def month_params
-	   params.permit(:attendance).permit(attendances: [:scheduled_end_time, :yokuzitu])[:attendances]
+    def overtime_params
+	   params.permit(:attendance).permit([:end_yotei_time, :yokuzitu, :processing_content, :instructor_confirmation])
     end 
-   
+    
 end
