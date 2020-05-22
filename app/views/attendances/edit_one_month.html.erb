@@ -9,10 +9,10 @@
           <th>曜日</th>
           <th>出社</th>
           <th>退社</th>
+          <th>翌日</th>
           <th>在社時間</th>
           <th>備考</th>
-          <th>残業指示</th>
-          <th>指示者</th>
+          <th>指示者確認</th>
         </tr>
       </thead>
       <tbody>
@@ -37,13 +37,17 @@
         <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
       <% end %>
       <td>
+        <% unless day.worked_on > Date.today %>
+         <%= attendance.check_box :tomorrow, {}, "true", "false" %>
+        <% end %> 
+      </td>
+      <td>
         <% if day.started_at.present? && day.finished_at.present? %>
           <%= working_times(day.started_at, day.finished_at) %>
         <% end %>
       </td>
       <td><%= attendance.text_field :note, class: "form-control" %></td>
-      <td><%= attendance.text_field :note, class: "form-control" %></td>
-      <td><%= attendance.text_field :note, class: "form-control" %></td>
+      <td><%= f.collection_select :instructor_confirmation, User.where(superior: true), :id, :name, :prompt => "上長を選択して下さい" %></td>
     </tr>
   <% end %>
 <% end %>

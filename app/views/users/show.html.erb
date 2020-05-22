@@ -19,23 +19,58 @@
   </table>
 </div>
 
-<div>
-  <h4>
-    <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【所属長承認申請のお知らせ】",  "", remote: true, class: "btn1" %>
-    <% end %>
-    </h4>
-  <h4>
-    <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【勤怠変更申請のお知らせ】", "", remote: true, class: "btn1" %>
-    <%end%>
-    </h4>
-  <h4>
-    <% if current_user.superior? && !current_user?(@users) %>
-      <%= link_to "【残業申請のお知らせ】", "", remote: true , class: "btn1" %>
-    <% end %>  
-  </h4>
-</div>
+<% if current_user.superior?  %>
+  <% if %>
+    <div>
+      <p>
+        【所属長承認申請のお知らせ】
+        <span>
+          <%= link_to "#{ @count1 }件の通知があります", edit_approval_user_attendance_path(@user) , remote: true, :style=>"color:red;" %>
+        </span> 
+      </p>
+    </div>
+  <% else %>
+    <div>
+      <p>
+        【所属長承認申請のお知らせ】
+      </p>
+    </div>
+  <% end %>
+  <% if %>
+    <div>
+      <p>
+        【勤怠変更申請のお知らせ】
+        <span>
+          <%= link_to "#{ @count2 }件の通知があります", edit_change_user_attendance_path(@user) , remote: true, :style=>"color:red;" %> 
+        </span>
+      </p>
+    </div>
+  <% else %>
+    <div>
+      <p>
+        【勤怠変更申請のお知らせ】
+      </p>
+    </div>
+  <% end %>  
+  <% if %>
+    <div>
+      <p>
+        【残業申請のお知らせ】
+        <span>
+          <%= link_to "#{ @count3 }件の通知があります", edit_request_overtime_user_attendance_path(@user) , remote: true, :style=>"color:red;" %> 
+        </span>
+      </p>
+    </div>
+  <% else %>
+    <div>
+      <p>
+        【残業申請のお知らせ】
+      </p>
+    </div>
+  <% end %>
+<% end %>  
+    
+      
 
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
@@ -127,7 +162,7 @@
         <td><%= format("%.2f", @total_working_times.to_f) %></td>
         <td colspan="5"></td>
         <td>
-           <%= form_with(model: @user, url: attendances_update_month_user_path(@user), method: :patch) do |f| %>
+           <%= form_with(model: @user, url: "", method: :patch) do |f| %>
              <%= f.collection_select :update_month, User.where(superior: true), :name, :name %>
            <%= f.submit "申請", class: "btn btn-primary btn-block" %>   
            <% end %>
@@ -137,5 +172,7 @@
   </table>
 </div>
 
-<div id="edit-month" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit_approval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit_change" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="edit-overtime" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit_request_overtime" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

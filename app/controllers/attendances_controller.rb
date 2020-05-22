@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
   
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_month, :update_month, :edit_overtime, :update_overtime]
-  before_action :logged_in_user, only: [:update, :edit_one_month, :edit_overtime, :update_overtime]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_approval, :update_approval, :edit_change, :update_change, :edit_month, :update_month,:edit_overtime, :update_overtime, :edit_request_overtime, :update_request_overtime]
+  before_action :logged_in_user, only: [:update, :edit_one_month, :update_one_month, :edit_approval, :update_approval, :edit_change, :update_change, :edit_overtime, :update_overtime, :edit_request_overtime, :update_request_overtime]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
 
@@ -73,36 +73,44 @@ class AttendancesController < ApplicationController
     return attendances
    end 
    
-   def update_month
-    @user = User.find(params[:id])
-    @attendance = Attendance.find_by(user_id: @user.id)
-       month_params do |id, item|
-         attendance = Attendance.find(id)
-         attendance.update_attributes!(item)
-       end 
-     flash[:success] = "所属長申請しました。"
-     redirect_to user_url
-   end 
+  def edit_change
+  end  
+
+  def update_change 
+  end 
+  
   
   def edit_overtime
     @attendance = Attendance.find_by(worked_on: params[:date])
   end
 
   def update_overtime
-    if @user.update_attributes(overtime_params)
-      flash[:success] = "残業申請しました"
-    end
-     redirect_to users_url
+    @attendance = @user.attendances.find(params[:id])
+      @attendance.update_attributes(overtime_params)
+      flash[:success] = "残業申請が完了しました。"
+      redirect_to @user 
   end
+  
+  def edit_approval
+  end 
+  
+  def update_approval
+  end  
+  
+  def edit_request_overtime
+  end  
+  
+  def update_request_overtime
+  end  
 
   private
   
     def attendances_params
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :note, :tomorrow, :instructor_confirmation])[:attendances]
     end
     
     def overtime_params
-	   params.permit(:attendance).permit([:end_yotei_time, :yokuzitu, :processing_content, :instructor_confirmation])
+	   params.permit(:attendance).permit([:end_yotei_time, :tomorrow, :processing_content, :instructor_confirmation])
     end 
     
 end

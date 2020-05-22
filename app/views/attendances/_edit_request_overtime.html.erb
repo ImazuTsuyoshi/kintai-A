@@ -1,4 +1,4 @@
-<% provide(:class_text, 'overtime') %>
+<% provide(:class_text, 'request_overtime') %>
 <% provide(:button_text, '変更を送信する') %>
 
 <div class="modal-dialog modal-lg modal-dialog-center">
@@ -12,7 +12,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <%= form_with(model: @attendance, url: update_overtime_user_attendance_path(@attendance), local: true, method: :patch) do |f| %>
+          <%= form_with(model: @attendance, url: update_request_overtime_user_attendance_path, local: true, method: :patch) do |f| %>
          
           <table class="table table-bordered table-condensed table-hover" id="table-users">
              <tr>
@@ -24,12 +24,7 @@
                <td>指示者確認</td>
              </tr>
              <tr>
-               <td><%= l(@attendance.worked_on, format: :short) %></td>
-               <td><%= $days_of_the_week[@attendance.worked_on.wday]%></td>
-               <td><%= f.time_field  :end_yotei_time, class: "form-control" %></td>
-               <td><%= f.check_box :yokuzitu, id: "remember_me" %></td>
-               <td><%= f.text_field :processing_content, class: "form-control" %></td>
-               <td><%= f.collection_select :instructor_confirmation, User.where(superior: true), :id, :name, :prompt => "上長を選択して下さい" %></td> 
+              
           </table>   
             <div class="center">
               <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
