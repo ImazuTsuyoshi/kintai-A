@@ -92,6 +92,7 @@ class AttendancesController < ApplicationController
   end
   
   def edit_approval
+    
   end 
   
   def update_approval

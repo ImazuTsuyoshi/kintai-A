@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     end 
   end
   
+  resources :approvals, only: :update
+  
 
 
 

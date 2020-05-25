@@ -56,7 +56,7 @@
                <td></td>
                <td></td>
                <td></td>
-               <td></td>
+               <td><%= f.select :decision, Attendance.decisions.keys.to_a, { include_blank: true } %></td>
                <td></td>
                <td></td>
              </tr>
