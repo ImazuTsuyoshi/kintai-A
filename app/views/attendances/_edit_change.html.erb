@@ -12,7 +12,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <%= form_with(model: @user, url: update_basic_info_user_path(@user), local: true, method: :patch) do |f| %>
+          <%= form_with(model: @attendance, url: update_basic_info_user_path, local: true, method: :patch) do |f| %>
           <%= render 'shared/error_messages', object: @user %>
           <table class="table table-bordered table-condensed table-hover" id="table-users">
              <tr>
@@ -42,10 +42,6 @@
                <td>分</td>
              </tr>
              <tr>
-               <!--data-dateから取得した日付と曜日を設定-->
-               <td class="modal-date"></td>
-　　　　　　　 <!-- data-hidden_dateで取得した値を、コントローラーに飛ばす -->
-            　 <%= f.hidden_field :day, class: 'form-control modal-hiddenDate' %>
                <td></td>
                <td></td>
                <td></td>

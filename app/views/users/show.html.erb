@@ -162,9 +162,10 @@
         <td><%= format("%.2f", @total_working_times.to_f) %></td>
         <td colspan="5"></td>
         <td>
-           <%= form_with(model: @user, url: "", method: :patch) do |f| %>
-             <%= f.collection_select :update_month, User.where(superior: true), :name, :name %>
-           <%= f.submit "申請", class: "btn btn-primary btn-block" %>   
+          所属長承認
+           <%= form_with(model: @approval, url: user_approval_path(@user),local: true, method: :patch) do |f| %>
+           <%= f.collection_select(:authorizer, @applovals, :id, :name, prompt: "") %>
+           <%= f.submit "申請", class: "btn btn-primary btn-block" %> 
            <% end %>
         </td>
       </tr>
