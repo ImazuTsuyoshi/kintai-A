@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200525122650) do
-
-  create_table "approvals", force: :cascade do |t|
-    t.date "month"
-    t.string "decision"
-    t.string "authorizer"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_approvals_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 20200606074136) do
 
   create_table "attendances", force: :cascade do |t|
     t.date "worked_on"
@@ -31,6 +21,7 @@ ActiveRecord::Schema.define(version: 20200525122650) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "decision"
+    t.string "authorizer"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -55,9 +46,9 @@ ActiveRecord::Schema.define(version: 20200525122650) do
     t.string "affiliation"
     t.string "employee_number"
     t.string "uid"
-    t.datetime "basic_work_time", default: "2020-05-16 23:00:00"
-    t.datetime "designated_work_start_time", default: "2020-05-16 23:00:00"
-    t.datetime "designated_work_end_time", default: "2020-05-17 09:00:00"
+    t.datetime "basic_work_time", default: "2020-06-01 23:00:00"
+    t.datetime "designated_work_start_time", default: "2020-06-01 23:00:00"
+    t.datetime "designated_work_end_time", default: "2020-06-02 09:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

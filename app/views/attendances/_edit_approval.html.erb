@@ -24,7 +24,7 @@
              <tr>
                <td></td>
                <td><%= f.select :decision, Attendance.decisions.keys.to_a, { include_blank: true } %></td>
-               <td></td>
+               <td><%= f.check_box :check %></td>
                <td><%= link_to "確認", "" , class: "btn btn-primary" %></td>
              </tr>
           </table>   

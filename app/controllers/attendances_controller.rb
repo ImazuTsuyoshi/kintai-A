@@ -103,6 +103,10 @@ class AttendancesController < ApplicationController
   
   def update_request_overtime
   end  
+  
+  def update_month
+    
+  end  
 
   private
   
