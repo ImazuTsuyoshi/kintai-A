@@ -105,13 +105,22 @@ class AttendancesController < ApplicationController
   end  
   
   def update_month
-    
+   @user = User.find(params[:id])
+   @attendance = Attendance.find_by(user_id: @user.id)
+   if @attendance.update_attributes(approvals_params)
+     flash[:info] = "申請しました"
+   end 
+   redirect_to @user
   end  
 
   private
   
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note, :tomorrow, :instructor_confirmation])[:attendances]
+    end
+    
+    def approvals_params
+      params.permit( [:authorizer])
     end
     
     def overtime_params
