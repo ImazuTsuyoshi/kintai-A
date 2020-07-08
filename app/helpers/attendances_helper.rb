@@ -20,11 +20,4 @@ module AttendancesHelper
     format("%.2d",(((time.min) / 15) * 15))
   end
   
-  def working_times(attendance)
-    unless attendance.tomorrow?
-      format("%.2f", (((attendance.finished_at - attendance.started_at) / 60) / 60.0))
-    else
-      format("%.2f", (((attendance.finished_at - attendance.started_at) / 60) / 60.0) + 24) 
-    end
-  end
 end

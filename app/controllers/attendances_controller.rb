@@ -28,6 +28,7 @@ class AttendancesController < ApplicationController
   end
 
   def edit_one_month
+    @applovals = User.where(superior: true)
   end
 
   def update_one_month
@@ -77,6 +78,10 @@ class AttendancesController < ApplicationController
   end  
 
   def update_change 
+    @attendance = @user.attendances.find(params[:id])
+      @attendance.update_attributes(change_params)
+      flash[:success] = "変更が送信されました。"
+      redirect_to @user 
   end 
   
   
@@ -96,12 +101,20 @@ class AttendancesController < ApplicationController
   end 
   
   def update_approval
+     @attendance = @user.attendances.find(params[:id])
+      @attendance.update_attributes(approval_params)
+      flash[:success] = "承認されました。"
+      redirect_to @user 
   end  
   
   def edit_request_overtime
   end  
   
   def update_request_overtime
+     @attendance = @user.attendances.find(params[:id])
+      @attendance.update_attributes(request_params)
+      flash[:success] = "残業申請が送信されました。"
+      redirect_to @user 
   end  
   
   def update_month
@@ -116,7 +129,7 @@ class AttendancesController < ApplicationController
   private
   
     def attendances_params
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :note, :tomorrow, :instructor_confirmation])[:attendances]
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
     
     def approvals_params
@@ -124,7 +137,19 @@ class AttendancesController < ApplicationController
     end
     
     def overtime_params
-	   params.permit(:attendance).permit([:end_yotei_time, :tomorrow, :processing_content, :instructor_confirmation])
+	   params.permit(:attendance).permit([:end_yotei_time, :yokuzitu, :processing_content, :instructor_confirmation])
+    end 
+    
+    def approval_params
+	   params.permit(:attendance).permit([:decision, :check])
+    end 
+    
+    def change_params
+	   params.permit(:attendance).permit([:decision])
+    end 
+    
+    def request_params
+	   params.permit(:attendance).permit([:decision])
     end 
     
 end
