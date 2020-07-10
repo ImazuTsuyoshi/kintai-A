@@ -49,20 +49,17 @@ class BasesController < ApplicationController
     redirect_to bases_url
   end
   
-  
-  
-  
   private
   
-  def base_params
+    def base_params
       params.require(:base).permit(:base_id, :name, :attendance_sort)
-  end
+    end
   
-  def set_user
-    @base = Base.find(params[:id])
-  end
+    def set_user
+      @base = Base.find(params[:id])
+    end
   
-  def correct_user
-    redirect_to(root_url) unless current_user?(@base)
-  end
+    def correct_user
+      redirect_to(root_url) unless current_user?(@base)
+    end
 end

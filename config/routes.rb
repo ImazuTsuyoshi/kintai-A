@@ -29,18 +29,13 @@ Rails.application.routes.draw do
     end
     
     resources :attendances, only: :update
-    
-    resources :bases do
+  end
+  
+  resources :bases do
       member do
         get 'edit_basic_info'
         patch 'update_basic_info'
       end 
     end
-  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
-
-
-
-
-
