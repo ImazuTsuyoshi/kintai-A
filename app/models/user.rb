@@ -55,15 +55,30 @@ class User < ApplicationRecord
   end
   
  def self.import(file)
-    CSV.foreach(file.path, headers: true, encoding: 'Shift_JIS:UTF-8') do |row|
-      user = new
-      user.attributes = row.to_hash.slice(*updatable_attributes)
-      user.save!
+    imported_num = 0
+    
+    open(file.path, 'r:cp932:utf-8', undef: :replace) do |f|
+      csv = CSV.new(f, :headers => :first_row)
+      begin
+        csv.each do |row|
+          next if row.header_row?
+          table = Hash[[row.headers, row.fields].transpose]
+          
+          user = find_by(email: table["email"])
+          if user.nil?
+            user = new
+          end
+          
+          user.attributes = table.to_hash.slice(*table.to_hash.except(:email, :created_at, :updated_at).keys)
+          
+          if user.valid?
+            user.save!
+            imported_num += 1
+          end
+        end
+      rescue
+      end
     end
- end
-
-  
-  def self.updatable_attributes
-    ["name", "email", "affiliation", "employee_number",  "uid", "basic_work_time", "basic_work_time", "designated_work_start_time", "designated_work_end_time","password"]
+    imported_num
   end
 end  

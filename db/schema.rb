@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20200708151210) do
     t.string "affiliation"
     t.string "employee_number"
     t.string "uid"
-    t.datetime "basic_work_time", default: "2020-07-08 23:00:00"
-    t.datetime "designated_work_start_time", default: "2020-07-08 23:00:00"
-    t.datetime "designated_work_end_time", default: "2020-07-09 09:00:00"
+    t.datetime "basic_work_time", default: "2020-07-11 23:00:00"
+    t.datetime "designated_work_start_time", default: "2020-07-11 23:00:00"
+    t.datetime "designated_work_end_time", default: "2020-07-12 09:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
