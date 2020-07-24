@@ -14,18 +14,6 @@ module AttendancesHelper
     false
   end
   
-  def working_times(start, finish)
-    format("%.2f", (((finish - start) / 60) / 60.0))
-  end
-  
-  def format_hour(time)
-    format('%2d',((time.hour)))
-  end
-  
-  def format_min(time)
-    format("%.2d",(((time.min) / 15) * 15))
-  end
-  
   def attendances_invalid?
     attendances = true
     attendances_params.each do |id, item|
@@ -125,13 +113,14 @@ module AttendancesHelper
   def apply_status(status)
     case status
     when "申請中"
-      "に申請中"
+      "申請中"
     when "承認"
-      "から承認済"
+      "承認済"
     when "否認"
-      "から否認"
+      "否認"
     else
-      "未"
+      
+      "申請"
     end
   end
   

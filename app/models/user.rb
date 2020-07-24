@@ -54,7 +54,7 @@ class User < ApplicationRecord
     end
   end
   
- def self.import(file)
+  def self.import(file)
     imported_num = 0
     
     open(file.path, 'r:cp932:utf-8', undef: :replace) do |f|
