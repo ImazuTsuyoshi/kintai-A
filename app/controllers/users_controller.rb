@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :correct_or_superior_user, only: %i(show)
   before_action :admin_exclusion, only: %i(show)
   before_action :set_one_month, only: %i(show)
+ 
   
   def index
     if params[:search] == ""
