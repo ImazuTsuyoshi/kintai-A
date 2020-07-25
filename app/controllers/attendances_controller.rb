@@ -15,21 +15,21 @@ class AttendancesController < ApplicationController
                                         recive_change_attendance_apply confirmation_change_attendance_apply edit_log)
   before_action :set_one_month_apply, only: %i(update_one_month_apply)
   
-  UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
-  INVALID_MSG = "無効な入力データがあった為、更新をキャンセルしました。"
+  UPDATE_ERROR_MSG = "勤怠登録に失敗しちゃいました。やり直してくれ。"
+  INVALID_MSG = "無効な入力データがあったかな？、更新をキャンセルされちゃいました。"
   
   def update
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
     if @attendance.started_at.nil?
       if @attendance.update_attributes(started_at: Time.current.change(sec: 0), changed_started_at: Time.current.change(sec: 0))
-        flash[:info] = "おはようございます！"
+        flash[:info] = "おはようございやーす！"
       else
         flash[:danger] = UPDATE_ERROR_MSG
       end
     elsif @attendance.finished_at.nil?
       if @attendance.update_attributes(finished_at: Time.current.change(sec: 0), changed_finished_at: Time.current.change(sec: 0))
-        flash[:info] = "お疲れ様でした。"
+        flash[:info] = "お疲れした。"
       else
         flash[:danger] = UPDATE_ERROR_MSG
       end
@@ -51,7 +51,7 @@ class AttendancesController < ApplicationController
             attendance.update_attributes!(change_superior_name: User.find(item[:change_superior_id]).name)
           end
         end
-        flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
+        flash[:success] = "1ヶ月分の勤怠情報を更新しちゃいました。"
         redirect_to user_url(date: params[:date])
       else
         flash[:danger] = "#{INVALID_MSG}#{@msg}"
@@ -78,10 +78,10 @@ class AttendancesController < ApplicationController
         @month_apply = item[:month_apply].to_date.strftime("%-m")
         @superior = item[:superior_name]
       end
-      flash[:success] = "#{@user.name}の#{@month_apply}月分勤怠申請を、#{@superior}へ提出しました。"
+      flash[:success] = "#{@user.name}の#{@month_apply}月分勤怠申請を、#{@superior}へ提出しちゃいました。"
       redirect_to user_url(date: params[:date])
     else
-      flash[:danger] = "上長を選択してください。"
+      flash[:danger] = "上長を選択してくれ!。"
       redirect_to user_url(date: params[:date])
     end
   end
@@ -99,10 +99,10 @@ class AttendancesController < ApplicationController
         end
       end
     end
-    flash[:success] = "1ヶ月勤怠申請を更新しました。"
+    flash[:success] = "1ヶ月勤怠申請を更新してくれ!。"
     redirect_back(fallback_location: root_path) # 申請月のページにリダイレクト、エラーが出る前にroot_pathにとんでくれる。
   rescue ActiveRecord::RecordInvalid
-    flash[:danger] = "1ヶ月勤怠申請の更新がキャンセルされました。"
+    flash[:danger] = "1ヶ月勤怠申請の更新がキャンセルされちゃいました。"
     redirect_back(fallback_location: root_path)
   end
   
@@ -123,11 +123,11 @@ class AttendancesController < ApplicationController
           overwotking_times(@user.designated_work_end_time, attendance.overtime_end_plan)
         end
         attendance.update_attributes(overtime_hours: @total_time, overtime_superior_name: User.find(item[:overtime_superior_id]).name)
-        flash[:success] = "#{attendance.overtime_superior_name}に残業申請を提出しました。"
+        flash[:success] = "#{attendance.overtime_superior_name}に残業申請を提出しちゃいました。"
         redirect_back(fallback_location: root_path)
       else
-        msg_a = "上長を選択してください。" if item[:overtime_superior_id].blank?
-        msg_b = "業務処理内容を入力してください。" if item[:overtime_detail].blank?
+        msg_a = "上長を選択してくれ。" if item[:overtime_superior_id].blank?
+        msg_b = "業務処理内容を入力してくれ」。" if item[:overtime_detail].blank?
         flash[:danger] = "#{msg_a}#{msg_b}"
         redirect_back(fallback_location: root_path)
       end
@@ -155,7 +155,7 @@ class AttendancesController < ApplicationController
     flash[:success] = "残業申請を更新しました。"
     redirect_to @user
   rescue ActiveRecord::RecordInvalid
-    flash[:danger] = "残業申請の更新がキャンセルされました。"
+    flash[:danger] = "残業申請の更新がキャンセルされちゃいました。"
     redirect_to root_path
   end
   
@@ -180,11 +180,11 @@ class AttendancesController < ApplicationController
           end
         end
       end
-      flash[:success] = "勤怠変更を更新しました。"
+      flash[:success] = "勤怠変更を更新したぞ。"
       redirect_to user_url(date: params[:date])
     end
   rescue ActiveRecord::RecordInvalid
-    flash[:danger] = "勤怠変更の更新がキャンセルされました。"
+    flash[:danger] = "勤怠変更の更新がキャンセルされちゃいました。"
     redirect_to root_path
   end
   

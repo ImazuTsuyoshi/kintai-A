@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     unless logged_in?
       store_location
-      flash[:danger] = "ログインしてください。"
+      flash[:danger] = "ログインしてくれ!。"
       redirect_to login_url
     end
   end
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   def admin_or_correct_user
     @user = User.find(params[:user_id]) if @user.blank?
     unless current_user?(@user) || current_user.admin?
-      flash[:danger] = "編集権限がありません。"
+      flash[:danger] = "あなたは申し訳ありませんが編集権限がないんですわ。"
       redirect_to(root_url)
     end
   end
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   def correct_or_superior_user
     @user = User.find(params[:user_id]) if @user.blank?
     unless current_user?(@user) || current_user.superior?
-      flash[:danger] = "編集権限がありません。"
+      flash[:danger] = "あなたは申し訳ありませんが編集権限がないんですわ。"
       redirect_to(root_url)
     end
   end
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     end
   
   rescue ActiveRecord::RecordInvalid
-    flash[:danger] = "ページ情報の取得に失敗しました、再アクセスしてください。"
+    flash[:danger] = "ページ情報の取得に失敗したぞ、再アクセスしてください。"
     redirect_to root_url
   end
 end
