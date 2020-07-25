@@ -8,37 +8,37 @@ User.create!(name: "モンキー.D.ルフィー(管理者)",
 
         
 User.create!(name: "ロロノア.ゾロ(上長A)",
-             email: "samplea@email.com",
+             email: "sampleA@email.com",
              superior: true,
              password: "password")
              
 User.create!(name: "サンジ(上長B)",
-             email: "sampleb@email.com",
+             email: "sampleB@email.com",
              superior: true,
              password: "password") 
              
 User.create!(name: "ナミ",
-             email: "samplec@email.com",
+             email: "sampleC@email.com",
              password: "password") 
              
 User.create!(name: "ウソップ",
-             email: "sampled@email.com",
+             email: "sampleD@email.com",
              password: "password")  
              
 User.create!(name: "チョッパー",
-             email: "samplee@email.com",
+             email: "sampleE@email.com",
              password: "password")   
              
 User.create!(name: "ロビン",
-             email: "samplef@email.com",
+             email: "sampleF@email.com",
              password: "password") 
              
 User.create!(name: "フランキー",
-             email: "sampleg@email.com",
+             email: "sampleG@email.com",
              password: "password")                
 
 User.create!(name: "ブルック",
-             email: "sampleh@email.com",
+             email: "sampleH@email.com",
              password: "password")   
              
 Base.create!(name: "拠点A",
