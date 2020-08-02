@@ -60,7 +60,7 @@
                           <% end %>
                           <%= $days_of_the_week[attendance.worked_on.wday] %>
                         </td>
-                        <td class="center"><%= attendance.started_at&.strftime("%-H") %></td>
+                        <td class="center"><%= attendance.started_at&.strftime("%-H")  %></td>
                         <td class="center"><%= attendance.started_at&.floor_to(15.minutes)&.strftime("%-M") %></td>
                         <td class="center"><%= attendance.finished_at&.strftime("%-H") %></td>
                         <td class="center"><%= attendance.finished_at&.floor_to(15.minutes)&.strftime("%-M") %></td>
@@ -96,4 +96,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>  

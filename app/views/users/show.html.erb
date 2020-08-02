@@ -116,27 +116,39 @@
             <% end %>
             <%= $days_of_the_week[day.worked_on.wday] %>
           </td>
-          <td><%= day.changed_started_at.hour if day.changed_started_at.present? %></td>
-          <td><%= day.changed_started_at.floor_to(15.minutes).strftime("%M") if day.changed_started_at.present? %></td>
+          <td>
+            <%= day.changed_started_at.hour if day.started_at.present? %>
+          </td>
+          <td>
+            <%= day.changed_started_at.floor_to(15.minutes).strftime("%M") if day.started_at.present? %>
+          </td>
           <td>
             <% if btn_text = attendance_attend(day) %>
               <%= link_to "#{btn_text}", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-block btn-attendance" if current_user?(@user) %>
             <% end %>
           </td>
-          <td><%= day.changed_finished_at.hour if day.changed_finished_at.present? %></td>
-          <td><%= day.changed_finished_at.floor_to(15.minutes).strftime("%M") if day.changed_finished_at.present? %></td>
+          <td>
+            <%= day.changed_finished_at.hour if day.finished_at.present? %>
+          </td>
+          <td>
+            <%= day.changed_finished_at.floor_to(15.minutes).strftime("%M") if day.finished_at.present? %>
+          </td>
           <td>
             <% if btn_text = attendance_leave(day) %>
               <%= link_to "#{btn_text}", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-block btn-attendance" if current_user?(@user) %>
             <% end %>
           </td>
           <td>
-            <% if day.changed_started_at.present? && day.changed_finished_at.present? %>
+            <% if day.changed_started_at? && day.changed_finished_at.present? %>
               <%= str_times = working_times(day.changed_started_at.floor_to(15.minutes), day.changed_finished_at.floor_to(15.minutes), day.change_next_day_check) %>
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
-          <td><%= day.note %></td>
+          <td>
+            <% if day.changed_started_at? && day.changed_finished_at.present?  %>
+              <%= day.note %>
+            <% end %>  
+          </td>
           <td><%= day.overtime_end_plan.strftime("%-H") if day.overtime_end_plan.present? %></td>
           <td><%= day.overtime_end_plan.floor_to(15.minutes).strftime("%M") if day.overtime_end_plan.present? %></td>
           <td>
@@ -185,7 +197,7 @@
 
 <script>
   $(window).on('load',function(){ 
-  // ブラウザバック時モーダルdismiss用URLの取得
+  // ブラウザバック時モーダルdismiss用URLの取��
   var @url = location.href;
   });
 </script>

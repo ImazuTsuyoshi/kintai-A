@@ -101,7 +101,7 @@ module AttendancesHelper
   
   # 勤怠申請決裁の変更のチェックが入っているか？
   def apply_confirmed_invalid?(status, check)
-    if (status == "承認" || status == "否認")  && check == "1"
+    if (status == "承認" || status == "否認" || status == "なし")  && check == "1"
       confirmed = true
     else
       confirmed = false
@@ -118,8 +118,9 @@ module AttendancesHelper
       "承認済"
     when "否認"
       "否認"
+    when "なし"  
+      "から無しにされました"
     else
-      
       "申請"
     end
   end
@@ -185,6 +186,8 @@ module AttendancesHelper
       "　残業否認"
     when "承認"
       "　残業承認"
+    when "なし"
+      "から残業無しにされました"
     else
     end
   end
@@ -210,6 +213,7 @@ module AttendancesHelper
     when "承認"
       "　勤怠編集承認︎︎"
     when "なし"
+      ""
     else
     end
   end
