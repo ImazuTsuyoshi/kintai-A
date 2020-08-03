@@ -154,7 +154,7 @@ class AttendancesController < ApplicationController
         redirect_to @user 
       else  
         flash[:danger] = "残業申請の更新がキャンセルされちゃいました。"
-        redirect_to root_path
+        redirect_to @user 
       end
     end
   end

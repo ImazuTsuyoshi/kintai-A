@@ -118,6 +118,8 @@ module AttendancesHelper
       "承認済"
     when "否認"
       "否認"
+    when "なし"
+      "なしにされました"  
     else
       "申請"
     end
