@@ -143,7 +143,7 @@
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
           </td>
           <td>
-            <% day.note  if day.changed_started_at? && day.changed_finished_at.present? unless day.change_status == "なし" %>
+            <%= day.note if day.changed_started_at? && day.changed_finished_at.present? unless day.change_status == "なし" %>
           </td>
           <td><%= day.overtime_end_plan.strftime("%-H") if day.overtime_end_plan.present? unless day.overtime_status == "なし" %></td>
           <td><%= day.overtime_end_plan.floor_to(15.minutes).strftime("%M") if day.overtime_end_plan.present? unless day.overtime_status == "なし"%></td>
