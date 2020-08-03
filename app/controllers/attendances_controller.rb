@@ -97,12 +97,13 @@ class AttendancesController < ApplicationController
           item[:month_check] = "0"
           attendance.update_attributes(item)
         end
-         flash[:success] = "1ヶ月勤怠申請を更新してくれ!。"
-         redirect_back(fallback_location: root_path) # 申請月のページにリダイレクト、エラーが出る前にroot_pathにとんでくれる。
-      else 
-        redirect_back(fallback_location: root_path)
       end
     end
+    flash[:success] = "1ヶ月勤怠申請を更新してくれ!。"
+    redirect_back(fallback_location: root_path) # 申請月のページにリダイレクト、エラーが出る前にroot_pathにとんでくれる。
+  rescue ActiveRecord::RecordInvalid
+    flash[:danger] = "1ヶ月勤怠申請の更新がキャンセルされちゃいました。"
+    redirect_back(fallback_location: root_path)
   end
   
   # 残業申請提出ページ
@@ -149,12 +150,13 @@ class AttendancesController < ApplicationController
           item[:overtime_check] = "0"
           attendance.update_attributes(item)
         end
-        flash[:success] = "残業申請を更新しました。(指示者確認でなしの場合は更新されません)"
-        redirect_to @user
-      else 
-        redirect_to @user
       end
     end
+    flash[:success] = "残業申請を更新しました。"
+    redirect_to @user
+  rescue ActiveRecord::RecordInvalid
+    flash[:danger] = "残業申請の更新がキャンセルされちゃいました。"
+    redirect_to root_path
   end
   
   # 勤怠変更確認ページ
@@ -164,6 +166,7 @@ class AttendancesController < ApplicationController
   
   # 勤怠変更承認
   def confirmation_change_attendance_apply
+    ActiveRecord::Base.transaction do
       confirmation_attendances_params.each do |id, item|
         if apply_confirmed_invalid?(item[:change_status], item[:change_check])
           attendance = Attendance.find(id)
@@ -175,13 +178,14 @@ class AttendancesController < ApplicationController
             item[:approval_date] = nil
             attendance.update_attributes(item)
           end
-          flash[:success] = "勤怠変更を更新したぞ。"
-          redirect_to user_url(date: params[:date])
-        else 
-          flash[:danger] = "勤怠変更の更新がキャンセルされちゃいました。"
-          redirect_to user_url(date: params[:date])
         end
       end
+      flash[:success] = "勤怠変更を更新したぞ。"
+      redirect_to user_url(date: params[:date])
+    end
+  rescue ActiveRecord::RecordInvalid
+    flash[:danger] = "勤怠変更の更新がキャンセルされちゃいました。"
+    redirect_to root_path
   end
   
   def edit_log

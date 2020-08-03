@@ -118,8 +118,6 @@ module AttendancesHelper
       "承認済"
     when "否認"
       "否認"
-    when "なし"  
-      "から無しにされました"
     else
       "申請"
     end
@@ -187,7 +185,7 @@ module AttendancesHelper
     when "承認"
       "　残業承認"
     when "なし"
-      "から残業無しにされました"
+      "から残業なしにされました"
     else
     end
   end
@@ -213,7 +211,7 @@ module AttendancesHelper
     when "承認"
       "　勤怠編集承認︎︎"
     when "なし"
-      ""
+      "から編集なしにされました"
     else
     end
   end
